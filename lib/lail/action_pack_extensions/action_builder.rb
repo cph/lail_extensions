@@ -117,7 +117,7 @@ module Lail
           define_method "update" do
             record = find_model(params[:id])
             instance_variable_set("@#{instance_name}",record)
-            record.update_attributes(params[instance_name])
+            record.update(params[instance_name])
             respond_with(record)
           end if actions.member? :update
 
