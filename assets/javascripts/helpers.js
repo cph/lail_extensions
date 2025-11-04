@@ -48,7 +48,7 @@ Lail.allow_only_slug_characters = function(options) {
   options = options || {};
   var allowed = {};
   for(var i=0; i<8; i++) { allowed[i] = []; }
-  
+
   // Alt only              modifiers=1 (001)
   // Ctrl only             modifiers=2 (010)
   // Ctrl+Alt              modifiers=3 (011)
@@ -57,7 +57,7 @@ Lail.allow_only_slug_characters = function(options) {
   // Shift+Ctrl            modifiers=6 (110)
   // Shift+Alt+Ctrl        modifiers=7 (111)
   // None of these keys    modifiers=0 (000)
-  
+
   function allow() {
     var args = Array.prototype.slice.call(arguments),
         code = args.shift(),
@@ -66,7 +66,7 @@ Lail.allow_only_slug_characters = function(options) {
       allowed[modifier].push(code);
     });
   }
-  
+
   allow(8);   // Allow backspace
   allow(46);  // Allow delete
   allow(37); allow(38); allow(39); allow(40); // Allow arrow keys
@@ -76,7 +76,7 @@ Lail.allow_only_slug_characters = function(options) {
   for(var i=96; i<=105; i++) { allow(i, [0]); } // Allow numbers on the 10-key
   for(var i=65; i<=91; i++) { allow(i, 0, 4); } // Allow letters
   allow(189, 0, 4); // allow dashes and underscores
-  
+
   return Lail.__restrictInputToKeys(allowed);
 }
 
@@ -86,7 +86,7 @@ Lail.allow_only_numbers = function(options) {
   options = options || {};
   var allowed = {};
   for(var i=0; i<8; i++) { allowed[i] = []; }
-  
+
   // Alt only              modifiers=1 (001)
   // Ctrl only             modifiers=2 (010)
   // Ctrl+Alt              modifiers=3 (011)
@@ -95,7 +95,7 @@ Lail.allow_only_numbers = function(options) {
   // Shift+Ctrl            modifiers=6 (110)
   // Shift+Alt+Ctrl        modifiers=7 (111)
   // None of these keys    modifiers=0 (000)
-  
+
   function allow() {
     var args = Array.prototype.slice.call(arguments),
         code = args.shift(),
@@ -104,7 +104,7 @@ Lail.allow_only_numbers = function(options) {
       allowed[modifier].push(code);
     });
   }
-  
+
   allow(8);   // Allow backspace
   allow(46);  // Allow delete
   allow(37); allow(38); allow(39); allow(40); // Allow arrow keys
@@ -112,7 +112,7 @@ Lail.allow_only_numbers = function(options) {
   allow(13);  // Allow enter
   for(var i=48; i<=57; i++) { allow(i, [0]); }  // Allow numbers
   for(var i=96; i<=105; i++) { allow(i, [0]); } // Allow numbers on the 10-key
-  
+
   if(options.allowDecimalPoint) {
     allow(110, [0]);
     allow(190, [0]); // On the 10-key
@@ -127,7 +127,9 @@ Lail.allow_only_numbers = function(options) {
     allow(57, [4]); // '(' is Shift+9
     allow(48, [4]); // ')' is Shift+0
   }
-  
+  if(options.allowPlusSign) {
+    allow(61, [4]); // '+' is Shift+=
+  }
   return Lail.__restrictInputToKeys(allowed);
 };
 
